@@ -1,0 +1,4 @@
+name: ElysiumCore
+version: '1.0-SNAPSHOT'
+main: de.satsuya.elysiumCore.ElysiumCore
+api-version: '1.21'
