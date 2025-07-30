@@ -21,6 +21,21 @@ public class ConfigLoader {
         // For example, using Bukkit's getConfig() method if this were a Bukkit plugin
     }
 
+    public static void saveConfig() {
+        // Save the configuration file
+        ElysiumLogger.log("Saving configuration...");
+        if (configData != null) {
+            try {
+                configData.save(configFile);
+                ElysiumLogger.log("Configuration saved successfully.");
+            } catch (Exception e) {
+                ElysiumLogger.error("Could not save configuration: " + e.getMessage());
+            }
+        } else {
+            ElysiumLogger.error("Configuration data is null, cannot save.");
+        }
+    }
+
     public static void reloadConfig() {
         // Reload the configuration file
         ElysiumLogger.log("Reloading configuration...");
