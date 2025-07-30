@@ -19,6 +19,7 @@ public class EventLoader {
                 try {
                     Listener listener = clazz.getDeclaredConstructor().newInstance();
                     Bukkit.getPluginManager().registerEvents(listener, plugin);
+                    ElysiumLogger.log("Event " + clazz.getSimpleName() + " loaded successfully.");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

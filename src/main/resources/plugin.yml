@@ -2,3 +2,8 @@ name: ElysiumCore
 version: '1.0-SNAPSHOT'
 main: de.satsuya.elysiumCore.ElysiumCore
 api-version: '1.21'
+
+commands:
+  test:
+    description: Test command for ElysiumCore
+    usage: /tes

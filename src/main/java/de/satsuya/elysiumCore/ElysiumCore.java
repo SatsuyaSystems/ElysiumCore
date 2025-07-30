@@ -23,6 +23,8 @@ public final class ElysiumCore extends JavaPlugin {
             // Load events
             de.satsuya.elysiumCore.utils.EventLoader.loadEvents(this);
             ElysiumLogger.log("Events loaded successfully.");
+            de.satsuya.elysiumCore.utils.CommandLoader.loadCommands(this);
+            ElysiumLogger.log("Commands loaded successfully.");
         } catch (Exception e) {
             ElysiumLogger.error("Failed to load events: " + e.getMessage());
         }
