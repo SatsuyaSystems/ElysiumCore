@@ -1,12 +1,12 @@
 package de.satsuya.elysiumCore;
 
 import de.satsuya.elysiumCore.utils.ConfigLoader;
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 

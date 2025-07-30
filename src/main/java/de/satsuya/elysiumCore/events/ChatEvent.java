@@ -1,11 +1,11 @@
 package de.satsuya.elysiumCore.events;
 
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
 
 public class ChatEvent implements Listener {
     @EventHandler

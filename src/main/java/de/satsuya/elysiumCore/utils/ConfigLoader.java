@@ -2,10 +2,8 @@ package de.satsuya.elysiumCore.utils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class ConfigLoader {
     // This class is responsible for loading and managing the plugin's configuration.
