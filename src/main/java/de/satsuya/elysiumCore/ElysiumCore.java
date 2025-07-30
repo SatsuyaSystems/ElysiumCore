@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore;
 
+import de.satsuya.elysiumCore.utils.ConfigLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -20,9 +21,17 @@ public final class ElysiumCore extends JavaPlugin {
         // Plugin startup logic
         ElysiumLogger.log("ElysiumCore is starting up...");
         try {
+            // Load configuration
+            de.satsuya.elysiumCore.utils.ConfigLoader.setupConfig();
+            de.satsuya.elysiumCore.utils.ConfigLoader.loadConfig();
+            ElysiumLogger.log("Configuration loaded successfully.");
+            if (ConfigLoader.configData.getBoolean("debug")) {
+                ElysiumLogger.debug("Debug mode is enabled.");
+            }
             // Load events
             de.satsuya.elysiumCore.utils.EventLoader.loadEvents(this);
             ElysiumLogger.log("Events loaded successfully.");
+            // Load commands
             de.satsuya.elysiumCore.utils.CommandLoader.loadCommands(this);
             ElysiumLogger.log("Commands loaded successfully.");
         } catch (Exception e) {

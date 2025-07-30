@@ -21,6 +21,6 @@ public class ElysiumLogger {
 
     private static boolean isDebugEnabled() {
         // This could be replaced with a configuration check
-        return true; // For now, always return true for debugging
+        return ConfigLoader.configData.getBoolean("debug");
     }
 }

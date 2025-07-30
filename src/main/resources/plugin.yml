@@ -6,4 +6,14 @@ api-version: '1.21'
 commands:
   test:
     description: Test command for ElysiumCore
-    usage: /tes
+    usage: /test
+  lootchest:
+    description: Main command for managing loot chests.
+    usage: /<command> [create|edit|give]
+    permission: elysiumcore.admin.lootbox
+    permission-message: You do not have permission to use this command.
+  reloadcore:
+    description: Reloads the ElysiumCore configuration.
+    usage: /reloadcore
+    permission: elysiumcore.admin.reload
+    permission-message: You do not have permission to reload the core.

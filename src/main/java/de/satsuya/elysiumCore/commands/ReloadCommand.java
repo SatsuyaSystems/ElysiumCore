@@ -2,21 +2,22 @@ package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.utils.ConfigLoader;
 
-public class TestCommand implements PluginCommand {
-
+public class ReloadCommand implements PluginCommand{
     @Override
     public String getName() {
-        return "test"; // The name of the command
+        return "reloadcore"; // The name of the command
     }
 
     @Override
     public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        // Handle the command logic here
+        // Handle the reload logic here
         if (args.length == 0) {
-            sender.sendMessage("Olla " + ConfigLoader.configData.getString("test"));
+            // Reload the plugin configuration or other necessary components
+            ConfigLoader.reloadConfig();
+            sender.sendMessage("ElysiumCore has been reloaded successfully.");
             return true;
         } else {
-            sender.sendMessage("Usage: /test");
+            sender.sendMessage("Usage: /reloadcore");
             return false;
         }
     }
