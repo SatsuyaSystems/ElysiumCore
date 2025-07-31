@@ -2,6 +2,9 @@ package de.satsuya.elysiumCore;
 
 import de.satsuya.elysiumCore.utils.ConfigLoader;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
+import de.satsuya.elysiumCore.utils.EventLoader;
+import de.satsuya.elysiumCore.utils.CommandLoader;
+import de.satsuya.elysiumCore.utils.TaskLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -22,19 +25,19 @@ public final class ElysiumCore extends JavaPlugin {
         ElysiumLogger.log("ElysiumCore is starting up...");
         try {
             // Load configuration
-            de.satsuya.elysiumCore.utils.ConfigLoader.setupConfig();
-            de.satsuya.elysiumCore.utils.ConfigLoader.loadConfig();
+            ConfigLoader.setupConfig();
+            ConfigLoader.loadConfig();
             ElysiumLogger.log("Configuration loaded successfully.");
             if (ConfigLoader.configData.getBoolean("debug")) {
                 ElysiumLogger.debug("Debug mode is enabled.");
             }
             // Load events
-            de.satsuya.elysiumCore.utils.EventLoader.loadEvents(this);
+            EventLoader.loadEvents(this);
             ElysiumLogger.log("Events loaded successfully.");
             // Load commands
-            de.satsuya.elysiumCore.utils.CommandLoader.loadCommands(this);
+            CommandLoader.loadCommands(this);
             ElysiumLogger.log("Commands loaded successfully.");
-            de.satsuya.elysiumCore.utils.TaskLoader.loadAndStartRunnables(this);
+            TaskLoader.loadAndStartRunnables(this);
             ElysiumLogger.log("Tasks loaded and started successfully.");
         } catch (Exception e) {
             ElysiumLogger.error("Failed to load events: " + e.getMessage());
