@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore.events;
 
+import de.satsuya.elysiumCore.utils.ConfigLoader;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,7 +22,7 @@ public class ChatEvent implements Listener {
         for (Player recipient : Bukkit.getOnlinePlayers()) {
             if (sender.getWorld().equals(recipient.getWorld())) {
                 double distance = sender.getLocation().distance(recipient.getLocation());
-                if (distance <= 30 || recipient.equals(sender)) {
+                if (distance <= ConfigLoader.configData.getInt("chatRadius") || recipient.equals(sender)) {
                     recipient.sendMessage("<" + sender.getDisplayName() + "> " + message);
                 }
             }

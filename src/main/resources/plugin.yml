@@ -7,11 +7,10 @@ commands:
   test:
     description: Test command for ElysiumCore
     usage: /test
-  lootbox:
-    description: Main command for managing loot chests.
-    usage: /<command> [create|edit|give]
-    permission: elysiumcore.admin.lootbox
-    permission-message: You do not have permission to use this command.
+  inventory:
+    description: All items from ElysiumCore
+    usage: /inventory
+    permission: elysiumcore.admin.inventory
   reloadcore:
     description: Reloads the ElysiumCore configuration.
     usage: /reloadcore
@@ -20,11 +19,14 @@ commands:
 
 permissions:
   elysiumcore.admin.lootbox:
-      description: Allows access to lootbox commands.
-      default: op
+    description: Allows access to lootbox commands.
+    default: op
   elysiumcore.admin.reload:
-      description: Allows reloading the ElysiumCore configuration.
-      default: op
+    description: Allows reloading the ElysiumCore configuration.
+    default: op
   elysiumcore.lootbox.open:
-      description: Allows players to open lootboxes.
-      default: true
+    description: Allows players to open lootboxes.
+    default: true
+  elysiumcore.admin.inventory:
+    description: Allows to open the inventory of Elysium
+    default: op

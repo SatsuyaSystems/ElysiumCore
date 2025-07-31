@@ -59,8 +59,10 @@ public class ConfigLoader {
                 configFile.createNewFile();
                 configData = new YamlConfiguration();
 
+                // Default Values
                 configData.set("test", "This is a test configuration");
                 configData.set("debug", true);
+                configData.set("chatRadius", 30);
 
                 configData.save(configFile);
                 ElysiumLogger.log("Configuration file created: " + configFile.getPath());

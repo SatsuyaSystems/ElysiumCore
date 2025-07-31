@@ -1,0 +1,75 @@
+package de.satsuya.elysiumCore.commands;
+
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
+import de.satsuya.elysiumCore.utils.ItemManager;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+
+public class InventoryCommand implements PluginCommand {
+    @Override
+    public String getName() {
+        return "inventory"; // The name of the command
+    }
+
+    @Override
+    public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        Player player = (Player) sender;
+        Inventory inventory = Bukkit.createInventory(null, 54, "Elysium Inventory");
+
+        List<ItemStack> allCustomItems = loadAllItemsDynamically();
+
+        // Add all found items to the inventory
+        for (ItemStack item : allCustomItems) {
+            // addItem adds items to the next available slot
+            inventory.addItem(item);
+        }
+
+        player.openInventory(inventory);
+        return true;
+    }
+
+    private List<ItemStack> loadAllItemsDynamically() {
+        List<ItemStack> items = new ArrayList<>();
+
+        // Get the ItemManager class object
+        Class<ItemManager> itemManagerClass = ItemManager.class;
+
+        // Get all declared methods in the class
+        Method[] methods = itemManagerClass.getDeclaredMethods();
+
+        for (Method method : methods) {
+            // Check if the method is public and static
+            if (Modifier.isPublic(method.getModifiers()) && Modifier.isStatic(method.getModifiers())) {
+
+                // Check if the method returns an ItemStack
+                if (method.getReturnType().equals(ItemStack.class)) {
+
+                    // Check if the method has no parameters
+                    if (method.getParameterCount() == 0) {
+                        try {
+                            // Invoke the static method to get the ItemStack
+                            ItemStack item = (ItemStack) method.invoke(null);
+                            if (item != null) {
+                                items.add(item);
+                            }
+                        } catch (Exception e) {
+                            // In a real plugin, you would log this error
+                            ElysiumLogger.error("Failed to invoke method " + method.getName() + " in ItemManager.");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        return items;
+    }
+
+}
