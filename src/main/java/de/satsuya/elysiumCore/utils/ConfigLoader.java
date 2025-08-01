@@ -1,30 +1,54 @@
 package de.satsuya.elysiumCore.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
 public class ConfigLoader {
-    // This class is responsible for loading and managing the plugin's configuration.
-    // It can be extended to include methods for loading specific configurations,
-    // handling defaults, and saving changes back to the config file.
-
+    
     private static File configFile;
     public static FileConfiguration configData;
 
+    public static void setupConfig() {
+        ElysiumLogger.log("Setting up default configuration...");
+        JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ElysiumCore");
+        
+        if (plugin != null) {
+            // Set config file path
+            configFile = new File(plugin.getDataFolder(), "config.yml");
+
+            // Save default config from resources
+            plugin.saveDefaultConfig();
+        } else {
+            ElysiumLogger.error("Plugin instance not found!");
+        }
+    }
+
     public static void loadConfig() {
-        // Load the configuration file
         ElysiumLogger.log("Loading configuration...");
-        configData = YamlConfiguration.loadConfiguration(configFile);
-        // Here you would typically load the config from a file or resource
-        // For example, using Bukkit's getConfig() method if this were a Bukkit plugin
+        
+        // If configFile is not set yet, set it now
+        if (configFile == null) {
+            JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ElysiumCore");
+            if (plugin != null) {
+                configFile = new File(plugin.getDataFolder(), "config.yml");
+            }
+        }
+        
+        if (configFile != null && configFile.exists()) {
+            configData = YamlConfiguration.loadConfiguration(configFile);
+            ElysiumLogger.log("Configuration successfully loaded.");
+        } else {
+            ElysiumLogger.error("Configuration file not found!");
+        }
     }
 
     public static void saveConfig() {
-        // Save the configuration file
         ElysiumLogger.log("Saving configuration...");
-        if (configData != null) {
+        if (configData != null && configFile != null) {
             try {
                 configData.save(configFile);
                 ElysiumLogger.log("Configuration saved successfully.");
@@ -32,45 +56,26 @@ public class ConfigLoader {
                 ElysiumLogger.error("Could not save configuration: " + e.getMessage());
             }
         } else {
-            ElysiumLogger.error("Configuration data is null, cannot save.");
+            ElysiumLogger.error("Configuration data or file is null, cannot save.");
         }
     }
 
     public static void reloadConfig() {
-        // Reload the configuration file
         ElysiumLogger.log("Reloading configuration...");
-        if (configFile.exists()) {
+        
+        // If configFile is not set yet, set it now
+        if (configFile == null) {
+            JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ElysiumCore");
+            if (plugin != null) {
+                configFile = new File(plugin.getDataFolder(), "config.yml");
+            }
+        }
+        
+        if (configFile != null && configFile.exists()) {
             configData = YamlConfiguration.loadConfiguration(configFile);
             ElysiumLogger.log("Configuration reloaded successfully.");
         } else {
-            ElysiumLogger.error("Configuration file does not exist: " + configFile.getPath());
-        }
-    }
-
-    public static void setupConfig() {
-        // Set up default configuration values if they do not exist
-        ElysiumLogger.log("Setting up default configuration...");
-        // This could involve checking if certain keys exist and setting defaults if not
-        configFile = new File("plugins/ElysiumCore/config.yml");
-        if (!configFile.exists()) {
-            try {
-                // Create the config file if it does not exist
-                configFile.getParentFile().mkdirs();
-                configFile.createNewFile();
-                configData = new YamlConfiguration();
-
-                // Default Values
-                configData.set("test", "This is a test configuration");
-                configData.set("debug", true);
-                configData.set("chatRadius", 30);
-
-                configData.save(configFile);
-                ElysiumLogger.log("Configuration file created: " + configFile.getPath());
-            } catch (Exception e) {
-                ElysiumLogger.error("Could not create configuration file: " + e.getMessage());
-            }
-        } else {
-            ElysiumLogger.log("Configuration file already exists: " + configFile.getPath());
+            ElysiumLogger.error("Configuration file does not exist: " + (configFile != null ? configFile.getPath() : "null"));
         }
     }
 }

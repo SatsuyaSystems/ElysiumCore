@@ -1,10 +1,6 @@
 package de.satsuya.elysiumCore;
 
-import de.satsuya.elysiumCore.utils.ConfigLoader;
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
-import de.satsuya.elysiumCore.utils.EventLoader;
-import de.satsuya.elysiumCore.utils.CommandLoader;
-import de.satsuya.elysiumCore.utils.TaskLoader;
+import de.satsuya.elysiumCore.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -19,29 +15,59 @@ import java.util.UUID;
 
 public final class ElysiumCore extends JavaPlugin {
 
+    private static ElysiumCore instance;
+    private final Map<UUID, BukkitTask> activePentagrams = new HashMap<>();
+
     @Override
     public void onEnable() {
-        ElysiumLogger.log("ElysiumCore is starting up...");
+        instance = this;
+        
+        ElysiumLogger.log("ElysiumCore is starting...");
         try {
             ConfigLoader.setupConfig();
             ConfigLoader.loadConfig();
-            ElysiumLogger.log("Configuration loaded successfully.");
+            ElysiumLogger.log("Configuration successfully loaded.");
+
             if (ConfigLoader.configData.getBoolean("debug")) {
                 ElysiumLogger.debug("Debug mode is enabled.");
             }
-            EventLoader.loadEvents(this);
-            ElysiumLogger.log("Events loaded successfully.");
-            CommandLoader.loadCommands(this);
-            ElysiumLogger.log("Commands loaded successfully.");
-            TaskLoader.loadAndStartRunnables(this);
-            ElysiumLogger.log("Tasks loaded and started successfully.");
-        } catch (Exception e) {
-            ElysiumLogger.error("Failed to load events: " + e.getMessage());
-        }
-        startGlobalSneakCheckTask();
-    }
 
-    private final Map<UUID, BukkitTask> activePentagrams = new HashMap<>();
+            EventLoader.loadEvents(this);
+            ElysiumLogger.log("Events successfully loaded.");
+
+            CommandLoader.loadCommands(this);
+            ElysiumLogger.log("Commands successfully loaded.");
+
+            TaskLoader.loadAndStartRunnables(this);
+            ElysiumLogger.log("Tasks successfully loaded and started.");
+            
+        } catch (Exception e) {
+            ElysiumLogger.error("Error loading plugin components: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        startGlobalSneakCheckTask();
+        ElysiumLogger.log("ElysiumCore has been successfully activated!");
+    }
+    
+    @Override
+    public void onDisable() {
+        ElysiumLogger.log("ElysiumCore is shutting down...");
+
+        // Pentagram Tasks stoppen
+        for (BukkitTask task : activePentagrams.values()) {
+            if (task != null) {
+                task.cancel();
+            }
+        }
+        activePentagrams.clear();
+        
+        ElysiumLogger.log("ElysiumCore has been shut down.");
+    }
+    
+    public static ElysiumCore getInstance() {
+        return instance;
+    }
 
     private void startGlobalSneakCheckTask() {
         Bukkit.getScheduler().runTaskTimer(this, () -> {
@@ -65,14 +91,14 @@ public final class ElysiumCore extends JavaPlugin {
             spawnPentagramParticles(center, player);
         }, 0L, 5L);
         activePentagrams.put(player.getUniqueId(), task);
-        ElysiumLogger.log(player.getName() + " hat ein Pentagramm begonnen!");
+        ElysiumLogger.log(player.getName() + " has started a pentagram!");
     }
 
     private void stopPentagramTask(Player player) {
         BukkitTask task = activePentagrams.remove(player.getUniqueId());
         if (task != null) {
             task.cancel();
-            ElysiumLogger.log(player.getName() + " hat das Pentagramm beendet!");
+            ElysiumLogger.log(player.getName() + " has ended the pentagram!");
         }
     }
 
@@ -106,10 +132,5 @@ public final class ElysiumCore extends JavaPlugin {
                 player.spawnParticle(Particle.FLAME, particleLoc, 0);
             }
         }
-    }
-
-    @Override
-    public void onDisable() {
-        ElysiumLogger.log("ElysiumCore is shutting down...");
     }
 }

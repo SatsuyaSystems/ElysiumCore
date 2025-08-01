@@ -18,6 +18,9 @@ public class TeleporterEvent implements Listener {
         if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
             return; // Not a right-click, so we stop here.
         }
+        if (item == null) {
+            return;
+        }
         if (item.getType() == Material.ENDER_PEARL) {
             if (item.getItemMeta().getPersistentDataContainer().get(NamespaceKeys.Teleporter, PersistentDataType.BOOLEAN) == Boolean.TRUE) {
                 event.setCancelled(true);

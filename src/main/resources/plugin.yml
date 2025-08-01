@@ -17,10 +17,8 @@ commands:
     permission: elysiumcore.admin.reload
     permission-message: You do not have permission to reload the core.
 
+
 permissions:
-  elysiumcore.admin.lootbox:
-    description: Allows access to lootbox commands.
-    default: op
   elysiumcore.admin.reload:
     description: Allows reloading the ElysiumCore configuration.
     default: op

@@ -1,0 +1,3 @@
+test: This is a test configuration
+debug: true
+chatRadius: 30

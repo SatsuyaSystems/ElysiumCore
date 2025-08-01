@@ -39,4 +39,14 @@ public class ItemManager {
         healCrystalItem.setItemMeta(healCrystalMeta);
         return healCrystalItem;
     }
+    public static ItemStack getTestItem() {
+        ItemStack testItem = new ItemStack(Material.CROSSBOW);
+        ItemMeta testMeta = testItem.getItemMeta();
+        PersistentDataContainer testData = testMeta.getPersistentDataContainer();
+        testMeta.setDisplayName("§6Test Item");
+        testMeta.setLore(List.of("§7Dies ist ein Test Item"));
+        testMeta.setCustomModelData(1000);
+        testItem.setItemMeta(testMeta);
+        return testItem;
+    }
 }
