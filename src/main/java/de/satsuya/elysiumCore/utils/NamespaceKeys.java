@@ -3,8 +3,18 @@ package de.satsuya.elysiumCore.utils;
 import de.satsuya.elysiumCore.ElysiumCore;
 import org.bukkit.NamespacedKey;
 
-public class NamespaceKeys {
-    public static NamespacedKey LootBox = new NamespacedKey(ElysiumCore.getPlugin(ElysiumCore.class), "lootbox");
-    public static NamespacedKey Teleporter = new NamespacedKey(ElysiumCore.getPlugin(ElysiumCore.class), "teleporter");
-    public static NamespacedKey HealCrystal = new NamespacedKey(ElysiumCore.getPlugin(ElysiumCore.class), "healcrystal");
+public enum NamespaceKeys {
+    LOOT_BOX("lootbox"),
+    TELEPORTER("teleporter"),
+    HEAL_CRYSTAL("healcrystal");
+
+    private final NamespacedKey key;
+
+    NamespaceKeys(String name) {
+        this.key = new NamespacedKey(ElysiumCore.getInstance(), name);
+    }
+
+    public NamespacedKey getKey() {
+        return key;
+    }
 }

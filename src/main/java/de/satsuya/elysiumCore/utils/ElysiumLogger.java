@@ -1,22 +1,22 @@
 package de.satsuya.elysiumCore.utils;
 
+import de.satsuya.elysiumCore.ElysiumCore;
+
 public class ElysiumLogger {
     public static void log(String message) {
-        System.out.println("[INFO] " + message);
+        ElysiumCore.getInstance().getLogger().info("[INFO] " + message);
     }
 
     public static void error(String message) {
-        System.err.println("[ERROR] " + message);
+        ElysiumCore.getInstance().getLogger().severe("[ERROR] " + message);
     }
 
     public static void debug(String message) {
-        if (isDebugEnabled()) {
-            System.out.println("[DEBUG] " + message);
-        }
+        ElysiumCore.getInstance().getLogger().info("[DEBUG] " + message);
     }
 
     public static void chat(String message) {
-        System.out.println(message);
+        ElysiumCore.getInstance().getLogger().info(message);
     }
 
     private static boolean isDebugEnabled() {
@@ -24,3 +24,4 @@ public class ElysiumLogger {
         return ConfigLoader.configData.getBoolean("debug");
     }
 }
+
