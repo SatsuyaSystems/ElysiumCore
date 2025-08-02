@@ -25,9 +25,7 @@ public class InventoryCommand implements PluginCommand {
 
         List<ItemStack> allCustomItems = loadAllItemsDynamically();
 
-        // Add all found items to the inventory
         for (ItemStack item : allCustomItems) {
-            // addItem adds items to the next available slot
             inventory.addItem(item);
         }
 

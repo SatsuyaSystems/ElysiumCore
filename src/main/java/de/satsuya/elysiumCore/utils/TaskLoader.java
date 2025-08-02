@@ -24,17 +24,9 @@ public class TaskLoader {
                     long delay = 0L; // Start ohne Verzögerung
                     long period = 20L; // Wiederhole jede Sekunde (20 Ticks)
 
-                    // Um eine Task nur einmal zu starten:
-                    // plugin.getServer().getScheduler().runTask(plugin, runnable);
-
-                    // Um eine wiederkehrende Task zu starten:
                     BukkitTask task = plugin.getServer().getScheduler().runTaskTimer(plugin, runnable, delay, period);
 
                     ElysiumLogger.log("Runnable " + clazz.getSimpleName() + " loaded and started successfully.");
-
-                    // Optional: Speichere die BukkitTask-Instanz, um sie später zu verwalten
-                    // (z.B. in einer Liste in deiner Hauptklasse, um sie bei onDisable zu stoppen)
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
