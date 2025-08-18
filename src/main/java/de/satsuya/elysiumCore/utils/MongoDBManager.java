@@ -216,12 +216,12 @@ public class MongoDBManager {
         // Try to load ItemsAdder item first
         if (jsonItem.containsKey("itemsadder_id")) {
             String customItemId = (String) jsonItem.get("itemsadder_id");
-            ElysiumLogger.log("Attempting to restore ItemsAdder custom item with ID: " + customItemId);
+            ElysiumLogger.debug("Attempting to restore ItemsAdder custom item with ID: " + customItemId);
 
             CustomStack customStack = CustomStack.getInstance(customItemId);
             if (customStack != null) {
                 ItemStack customItem = customStack.getItemStack();
-                ElysiumLogger.log("Successfully restored custom item: " + customItemId);
+                ElysiumLogger.debug("Successfully restored custom item: " + customItemId);
 
                 // Re-apply amount, durability, and enchantments that might have been changed
                 if (jsonItem.containsKey("amount")) {
