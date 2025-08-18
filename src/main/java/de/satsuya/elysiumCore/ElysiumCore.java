@@ -17,6 +17,7 @@ public final class ElysiumCore extends JavaPlugin {
 
     private static ElysiumCore instance;
     private final Map<UUID, BukkitTask> activePentagrams = new HashMap<>();
+    private static MongoDBManager mongoDBManager;
 
     @Override
     public void onEnable() {
@@ -27,6 +28,12 @@ public final class ElysiumCore extends JavaPlugin {
             ConfigLoader.setupConfig();
             ConfigLoader.loadConfig();
             ElysiumLogger.log("Configuration successfully loaded.");
+
+            String mongoUri = ConfigLoader.configData.getString("mongodb.uri");
+            String databaseName = ConfigLoader.configData.getString("mongodb.database");
+            String collectionName = ConfigLoader.configData.getString("mongodb.collection");
+
+            mongoDBManager = new MongoDBManager(mongoUri, databaseName, collectionName);
 
             if (ConfigLoader.configData.getBoolean("debug")) {
                 ElysiumLogger.debug("Debug mode is enabled.");
@@ -63,6 +70,10 @@ public final class ElysiumCore extends JavaPlugin {
         activePentagrams.clear();
         
         ElysiumLogger.log("ElysiumCore has been shut down.");
+    }
+
+    public static MongoDBManager getMongoDBManager() {
+        return mongoDBManager;
     }
     
     public static ElysiumCore getInstance() {

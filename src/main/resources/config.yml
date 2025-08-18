@@ -1,3 +1,7 @@
 test: This is a test configuration
 debug: true
 chatRadius: 30
+mongodb:
+  uri: "mongodb://localhost:27017"
+  database: "elysium"
+  collection: "player_inventories"
