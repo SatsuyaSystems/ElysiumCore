@@ -51,7 +51,6 @@ public final class ElysiumCore extends JavaPlugin {
         } catch (Exception e) {
             ElysiumLogger.error("Error loading plugin components: " + e.getMessage());
             e.printStackTrace();
-            this.getServer().getPluginManager().disablePlugin(this);
         }
         
         startGlobalSneakCheckTask();
