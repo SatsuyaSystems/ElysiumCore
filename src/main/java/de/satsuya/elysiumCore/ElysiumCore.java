@@ -60,7 +60,8 @@ public final class ElysiumCore extends JavaPlugin {
     @Override
     public void onDisable() {
         ElysiumLogger.log("ElysiumCore is shutting down...");
-
+        ElysiumLogger.log("Additional bugs Sponsored by angryzero.");
+        
         // Pentagram Tasks stoppen
         for (BukkitTask task : activePentagrams.values()) {
             if (task != null) {
