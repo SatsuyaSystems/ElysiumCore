@@ -23,7 +23,7 @@ public class HealCrystalEvent implements Listener {
             return;
         }
         if (item.getType() == Material.AMETHYST_SHARD) {
-            if (item.getItemMeta().getPersistentDataContainer().get(NamespaceKeys.HealCrystal, PersistentDataType.BOOLEAN) == Boolean.TRUE) {
+            if (item.getItemMeta().getPersistentDataContainer().get(NamespaceKeys.HEAL_CRYSTAL.getKey(), PersistentDataType.BOOLEAN) == Boolean.TRUE) {
                 event.setCancelled(true);
                 item.setAmount(item.getAmount() - 1);
                 event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20, 255));

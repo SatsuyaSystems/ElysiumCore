@@ -22,7 +22,7 @@ public class TeleporterEvent implements Listener {
             return;
         }
         if (item.getType() == Material.ENDER_PEARL) {
-            if (item.getItemMeta().getPersistentDataContainer().get(NamespaceKeys.Teleporter, PersistentDataType.BOOLEAN) == Boolean.TRUE) {
+            if (item.getItemMeta().getPersistentDataContainer().get(NamespaceKeys.TELEPORTER.getKey(), PersistentDataType.BOOLEAN) == Boolean.TRUE) {
                 event.setCancelled(true);
                 item.setAmount(item.getAmount() - 1);
                 event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.COMMAND);

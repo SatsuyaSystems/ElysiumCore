@@ -42,7 +42,7 @@ public class LootboxEvent implements Listener {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             PersistentDataContainer data = meta.getPersistentDataContainer();
-            if (data.get(NamespaceKeys.LootBox, PersistentDataType.BOOLEAN) == Boolean.TRUE) {
+            if (data.get(NamespaceKeys.LOOT_BOX.getKey(), PersistentDataType.BOOLEAN) == Boolean.TRUE) {
                 event.setCancelled(true);
                 openRoulette(player);
                 // Entferne die Lootbox aus dem Inventar des Spielers

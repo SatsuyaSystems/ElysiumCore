@@ -2,6 +2,8 @@ package de.satsuya.elysiumCore.utils;
 
 import de.satsuya.elysiumCore.ElysiumCore;
 
+import java.util.logging.Level;
+
 public class ElysiumLogger {
     public static void log(String message) {
         ElysiumCore.getInstance().getLogger().info("[INFO] " + message);
@@ -12,7 +14,8 @@ public class ElysiumLogger {
     }
 
     public static void debug(String message) {
-        ElysiumCore.getInstance().getLogger().info("[DEBUG] " + message);
+        if (!isDebugEnabled()) return;
+        ElysiumCore.getInstance().getLogger().log(Level.FINEST,"[DEBUG] " + message);
     }
 
     public static void chat(String message) {
