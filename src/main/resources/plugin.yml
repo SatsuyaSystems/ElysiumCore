@@ -35,3 +35,6 @@ permissions:
   elysiumcore.admin.inventory:
     description: Allows to open the inventory of Elysium
     default: op
+  elysiumcore.guild:
+    description: Allows players to use the guild command.
+    default: true
