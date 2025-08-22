@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 import java.util.Map;
@@ -50,28 +51,68 @@ public class GuildCommand implements PluginCommand {
         // Verarbeitet die Unterbefehle basierend auf dem ersten Argument
         switch (args[0].toLowerCase()) {
             case "create":
-                handleCreateCommand(player, args);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleCreateCommand(player, args);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "invite":
-                handleInviteCommand(player, args);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleInviteCommand(player, args);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "join":
-                handleJoinCommand(player, args);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleJoinCommand(player, args);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "leave":
-                handleLeaveCommand(player);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleLeaveCommand(player);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "kick":
-                handleKickCommand(player, args);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleKickCommand(player, args);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "list":
-                handleListCommand(player);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleListCommand(player);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "delete":
-                handleDeleteCommand(player);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleDeleteCommand(player);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             case "clearinvites":
-                handleClearInvitesCommand(player);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        handleClearInvitesCommand(player);
+                    }
+                }.runTaskAsynchronously(ElysiumCore.getInstance());
                 break;
             default:
                 player.sendMessage(ChatColor.RED + "Unbekannter Unterbefehl. Nutze /" + label + " help für eine Liste der Befehle.");
