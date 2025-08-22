@@ -5,11 +5,16 @@ import de.satsuya.elysiumCore.manager.GuildManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.Command;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.Map;
 
+/**
+ * Diese Klasse ist der Befehls-Handler für alle Gilden-bezogenen Befehle.
+ * Sie implementiert PluginCommand, um die Anforderungen des Command Loaders zu erfüllen.
+ */
 public class GuildCommand implements PluginCommand {
 
     private final GuildManager guildManager;
@@ -27,7 +32,7 @@ public class GuildCommand implements PluginCommand {
     }
 
     @Override
-    public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // Stellt sicher, dass der Befehl von einem Spieler ausgeführt wird
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Dieser Befehl kann nur von einem Spieler ausgeführt werden.");
@@ -62,6 +67,9 @@ public class GuildCommand implements PluginCommand {
             case "list":
                 handleListCommand(player);
                 break;
+            case "delete":
+                handleDeleteCommand(player);
+                break;
             case "clearinvites":
                 handleClearInvitesCommand(player);
                 break;
@@ -85,6 +93,7 @@ public class GuildCommand implements PluginCommand {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a/guild list &7- Zeigt eine Liste der Mitglieder deiner Gilde an."));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a/guild leave &7- Verlässt deine aktuelle Gilde."));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a/guild kick <Spieler> &7- Entfernt einen Spieler aus der Gilde (nur für den Gilden-Leiter)."));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a/guild delete &7- Löscht die Gilde (nur für den Gilden-Leiter)."));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a/guild clearinvites &7- Löscht alle ausstehenden Einladungen deiner Gilde."));
     }
 
@@ -295,6 +304,30 @@ public class GuildCommand implements PluginCommand {
         guildManager.kickPlayer(kickedPlayer.getUniqueId());
         player.sendMessage(ChatColor.GREEN + kickedPlayer.getName() + " wurde erfolgreich aus der Gilde entfernt.");
         kickedPlayer.sendMessage(ChatColor.RED + "Du wurdest aus der Gilde '" + playerGuildName + "' gekickt.");
+    }
+
+    /**
+     * Verarbeitet den 'delete'-Unterbefehl.
+     * @param player Der Spieler, der den Befehl ausführt.
+     */
+    private void handleDeleteCommand(Player player) {
+        String playerGuildName = guildManager.getPlayerGuild(player.getUniqueId());
+
+        if (playerGuildName == null) {
+            player.sendMessage(ChatColor.RED + "Du bist in keiner Gilde.");
+            return;
+        }
+
+        if (!guildManager.isGuildLeader(player.getUniqueId(), playerGuildName)) {
+            player.sendMessage(ChatColor.RED + "Nur der Gilden-Leiter kann die Gilde löschen.");
+            return;
+        }
+
+        if (guildManager.deleteGuild(playerGuildName, player.getUniqueId())) {
+            player.sendMessage(ChatColor.GREEN + "Die Gilde '" + playerGuildName + "' wurde erfolgreich gelöscht.");
+        } else {
+            player.sendMessage(ChatColor.RED + "Fehler beim Löschen der Gilde.");
+        }
     }
 
     /**

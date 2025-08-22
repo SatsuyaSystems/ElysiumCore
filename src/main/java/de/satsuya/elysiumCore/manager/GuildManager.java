@@ -252,4 +252,35 @@ public class GuildManager {
         Document deleteQuery = new Document("guildName", guildName);
         invitationCollection.deleteMany(deleteQuery);
     }
+
+    /**
+     * Löscht eine Gilde aus der Datenbank, einschließlich aller ausstehenden Einladungen.
+     * Nur der Gildenleiter kann eine Gilde löschen.
+     * @param guildName Der Name der Gilde.
+     * @param leaderUUID Die UUID des Spielers, der versucht, die Gilde zu löschen.
+     * @return True, wenn die Gilde erfolgreich gelöscht wurde, sonst false.
+     */
+    public boolean deleteGuild(String guildName, UUID leaderUUID) {
+        // Stellt sicher, dass die Gilde existiert und der Spieler der Leiter ist.
+        Document query = new Document("guildName", guildName)
+                .append("leaderUUID", leaderUUID.toString());
+
+        if (guildCollection.find(query).first() == null) {
+            // Die Gilde existiert nicht oder der Spieler ist nicht der Leiter.
+            return false;
+        }
+
+        try {
+            // Löscht das Gilden-Dokument.
+            guildCollection.deleteOne(query);
+
+            // Löscht alle ausstehenden Einladungen für diese Gilde.
+            clearInvitations(guildName);
+
+            return true;
+        } catch (Exception e) {
+            System.err.println("Fehler beim Löschen der Gilde: " + e.getMessage());
+            return false;
+        }
+    }
 }

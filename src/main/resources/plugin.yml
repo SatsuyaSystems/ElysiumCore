@@ -18,7 +18,7 @@ commands:
     permission-message: You do not have permission to reload the core.
   guild:
     description: Die Haupt-Gildenbefehle.
-    usage: /guild <create|invite|join|leave|kick|list|clearinvites>
+    usage: /guild <create|invite|join|leave|kick|list|clearinvites|delete>
     permission: elysiumcore.guild
     aliases:
       - g
