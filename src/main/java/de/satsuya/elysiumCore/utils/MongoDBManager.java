@@ -7,16 +7,16 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
 import de.satsuya.elysiumCore.ElysiumCore;
+import dev.lone.itemsadder.api.CustomStack;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -25,32 +25,27 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.util.logging.Level;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-// Import the ItemsAdder API
-import dev.lone.itemsadder.api.CustomStack;
-import dev.lone.itemsadder.api.ItemsAdder;
+import java.util.List;
+import java.util.Map;
 
 
 public class MongoDBManager {
 
     private MongoClient mongoClient;
     private MongoDatabase database;
-    private MongoCollection<Document> collection;
 
-    public MongoDBManager(String uri, String dbName, String colName) {
+    public MongoDBManager(String uri, String dbName) {
         try {
             mongoClient = MongoClients.create(uri);
             database = mongoClient.getDatabase(dbName);
-            collection = database.getCollection(colName);
         } catch (Exception e) {
             ElysiumLogger.error("Could not connect to MongoDB!");
         }
+    }
+
+    public MongoDatabase getDatabase() {
+        return database;
     }
 
     /**
@@ -499,7 +494,7 @@ public class MongoDBManager {
 
             ElysiumLogger.debug("Final BSON document being saved: " + doc.toJson());
 
-            collection.replaceOne(
+            database.getCollection("player_inventories").replaceOne(
                     new Document("uuid", player.getUniqueId().toString()),
                     doc,
                     new ReplaceOptions().upsert(true)
@@ -518,7 +513,7 @@ public class MongoDBManager {
     public void loadInventory(Player player) {
         try {
             ElysiumLogger.debug("Attempting to load inventory for player: " + player.getName() + " with UUID: " + player.getUniqueId().toString());
-            Document doc = collection.find(new Document("uuid", player.getUniqueId().toString())).first();
+            Document doc = database.getCollection("player_inventories").find(new Document("uuid", player.getUniqueId().toString())).first();
 
             if (doc != null && doc.containsKey("inventory")) {
                 ElysiumLogger.debug("Found inventory document for player.");

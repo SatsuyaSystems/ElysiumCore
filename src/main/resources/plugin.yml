@@ -16,6 +16,13 @@ commands:
     usage: /reloadcore
     permission: elysiumcore.admin.reload
     permission-message: You do not have permission to reload the core.
+  guild:
+    description: Die Haupt-Gildenbefehle.
+    usage: /guild <create|invite|join|leave|kick|list|clearinvites>
+    permission: elysiumcore.guild
+    aliases:
+      - g
+      - guilden
 
 
 permissions:

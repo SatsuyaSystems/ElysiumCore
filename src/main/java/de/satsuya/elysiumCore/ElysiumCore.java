@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore;
 
+import de.satsuya.elysiumCore.manager.GuildManager;
 import de.satsuya.elysiumCore.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,6 +19,7 @@ public final class ElysiumCore extends JavaPlugin {
     private static ElysiumCore instance;
     private final Map<UUID, BukkitTask> activePentagrams = new HashMap<>();
     private static MongoDBManager mongoDBManager;
+    public static GuildManager guildManager;
 
     @Override
     public void onEnable() {
@@ -31,9 +33,9 @@ public final class ElysiumCore extends JavaPlugin {
 
             String mongoUri = ConfigLoader.configData.getString("mongodb.uri");
             String databaseName = ConfigLoader.configData.getString("mongodb.database");
-            String collectionName = ConfigLoader.configData.getString("mongodb.collection");
 
-            mongoDBManager = new MongoDBManager(mongoUri, databaseName, collectionName);
+            mongoDBManager = new MongoDBManager(mongoUri, databaseName);
+            guildManager = new GuildManager();
 
             if (ConfigLoader.configData.getBoolean("debug")) {
                 ElysiumLogger.debug("Debug mode is enabled.");
@@ -76,6 +78,7 @@ public final class ElysiumCore extends JavaPlugin {
     public static MongoDBManager getMongoDBManager() {
         return mongoDBManager;
     }
+    public static GuildManager getGuildManager() { return guildManager; }
     
     public static ElysiumCore getInstance() {
         return instance;
