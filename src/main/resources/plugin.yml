@@ -23,6 +23,13 @@ commands:
     aliases:
       - g
       - guilden
+  eco:
+    description: Economy Commands
+    usage: /eco <balance|pay>
+    permission: elysiumcore.eco
+    aliases:
+      - e
+      - money
 
 
 permissions:
@@ -38,3 +45,9 @@ permissions:
   elysiumcore.guild:
     description: Allows players to use the guild command.
     default: true
+  elysiumcore.eco:
+    description: Allows players to use the eco command.
+    default: true
+  elysiumcore.admin.eco:
+    description: Allows players to use the eco admin command.
+    default: op

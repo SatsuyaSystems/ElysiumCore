@@ -16,6 +16,9 @@ public class PlayerJoin implements Listener {
             public void run() {
                 // We use the static getter to get our MongoDBManager.
                 ElysiumCore.getMongoDBManager().loadInventory(event.getPlayer());
+                if (!ElysiumCore.getEcoManager().isPlayerInDatabase(event.getPlayer())) {
+                    ElysiumCore.getEcoManager().initPlayer(event.getPlayer());
+                }
             }
         }.runTaskAsynchronously(ElysiumCore.getInstance());
     }

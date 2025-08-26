@@ -4,19 +4,21 @@ import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.manager.GuildManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.UUID;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Diese Klasse ist der Befehls-Handler für alle Gilden-bezogenen Befehle.
  * Sie implementiert PluginCommand, um die Anforderungen des Command Loaders zu erfüllen.
  */
-public class GuildCommand implements PluginCommand {
+public class GuildCommand implements PluginCommand, TabExecutor {
 
     private final GuildManager guildManager;
 
@@ -30,6 +32,22 @@ public class GuildCommand implements PluginCommand {
     @Override
     public String getName() {
         return "guild";
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1)
+            return Arrays.asList("create","invite","join","leave","kick","list","clearinvites","delete");
+        if (args.length == 2) {
+            // Nur Spielernamen vorschlagen, wenn der Unterbefehl dies erlaubt
+            if ("invite".equalsIgnoreCase(args[0]) || "kick".equalsIgnoreCase(args[0])) {
+                List<String> names = new ArrayList<>();
+                sender.getServer().getOnlinePlayers().forEach(pl -> names.add(pl.getName()));
+                return names;
+            }
+        }
+
+        return new ArrayList<>();
     }
 
     @Override
