@@ -2,12 +2,12 @@ package de.satsuya.elysiumCore.manager;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.utils.MongoDBManager;
 import org.bson.Document;
 import org.bukkit.entity.Player;
-import com.mongodb.client.model.Updates;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -27,6 +27,7 @@ public class EcoManager {
 
     public void initPlayer(Player player) {
         Document query = new Document("uuid", player.getUniqueId().toString())
+                .append("name", player.getDisplayName().toString())
                 .append("balance", 1000);
         ecoCollection.insertOne(query);
         ElysiumLogger.log("Init ECO for player: " + player.getDisplayName());

@@ -3,7 +3,6 @@ package de.satsuya.elysiumCore.utils;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
 import de.satsuya.elysiumCore.ElysiumCore;
@@ -490,6 +489,7 @@ public class MongoDBManager {
 
             // Create the BSON Document with the JSON string
             Document doc = new Document("uuid", player.getUniqueId().toString())
+                    .append("name", player.getDisplayName().toString())
                     .append("inventory", jsonInventory.toJSONString());
 
             ElysiumLogger.debug("Final BSON document being saved: " + doc.toJson());

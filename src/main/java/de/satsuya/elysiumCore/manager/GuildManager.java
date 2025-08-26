@@ -1,21 +1,13 @@
 package de.satsuya.elysiumCore.manager;
 
-import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.utils.MongoDBManager;
 import org.bson.Document;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Diese Klasse verwaltet alle Gilden- und Spielerdaten in einer MongoDB-Datenbank.
