@@ -30,15 +30,20 @@ commands:
     aliases:
       - e
       - money
+  reboot:
+    description: Reboots the server
+    usage: /reboot
+    permission: elysiumcore.admin.reboot
+  gm:
+    description: Call a gamemaster
+    usage: /gm
+    permission: elysiumcore.gm
 
 
 permissions:
   elysiumcore.admin.reload:
     description: Allows reloading the ElysiumCore configuration.
     default: op
-  elysiumcore.lootbox.open:
-    description: Allows players to open lootboxes.
-    default: true
   elysiumcore.admin.inventory:
     description: Allows to open the inventory of Elysium
     default: op
@@ -51,3 +56,12 @@ permissions:
   elysiumcore.admin.eco:
     description: Allows players to use the eco admin command.
     default: op
+  elysiumcore.admin.reboot:
+    description: reboot permission
+    default: op
+  elysiumcore.gm.notify:
+    description: notify player on gm command
+    default: op
+  elysiumcore.gm:
+    description: allow use of gm command
+    default: true

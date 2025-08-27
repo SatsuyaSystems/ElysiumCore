@@ -3,6 +3,8 @@ package de.satsuya.elysiumCore;
 import de.satsuya.elysiumCore.manager.EcoManager;
 import de.satsuya.elysiumCore.manager.GuildManager;
 import de.satsuya.elysiumCore.utils.*;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
