@@ -1,14 +1,20 @@
 package de.satsuya.elysiumCore.events;
 
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.manager.NametagService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerQuit implements Listener {
+
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
+    public void onQuit(PlayerQuitEvent event) {
+        NametagService service = ElysiumCore.getInstance().getNametagService();
+        if (service != null) {
+            service.onQuit(event.getPlayer());
+        }
         // Database operations should be run on a separate thread to avoid lag.
         new BukkitRunnable() {
             @Override

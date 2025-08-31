@@ -2,20 +2,20 @@ package de.satsuya.elysiumCore;
 
 import de.satsuya.elysiumCore.manager.EcoManager;
 import de.satsuya.elysiumCore.manager.GuildManager;
+import de.satsuya.elysiumCore.manager.LuckPermsNametagSubscriber;
+import de.satsuya.elysiumCore.manager.NametagService;
 import de.satsuya.elysiumCore.utils.*;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public final class ElysiumCore extends JavaPlugin {
 
     private static ElysiumCore instance;
-    private final Map<UUID, BukkitTask> activePentagrams = new HashMap<>();
+    private NametagService nametagService;
+
     private static MongoDBManager mongoDBManager;
     public static GuildManager guildManager;
     public static EcoManager ecoManager;
@@ -23,7 +23,7 @@ public final class ElysiumCore extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        
+
         ElysiumLogger.log("ElysiumCore is starting...");
         try {
             ConfigLoader.setupConfig();
@@ -41,6 +41,30 @@ public final class ElysiumCore extends JavaPlugin {
                 ElysiumLogger.debug("Debug mode is enabled.");
             }
 
+            // Stelle sicher, dass LuckPerms aktiv ist
+            var luckPermsPlugin = Bukkit.getPluginManager().getPlugin("LuckPerms");
+            if (luckPermsPlugin == null || !luckPermsPlugin.isEnabled()) {
+                getLogger().severe("LuckPerms ist nicht geladen/aktiv. Deaktiviere ElysiumCore.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
+
+            LuckPerms luckPerms = LuckPermsProvider.get();
+
+            // NametagService ohne ProtocolLib initialisieren
+            this.nametagService = new NametagService(this, luckPerms);
+
+            // LuckPerms EventSubscriber initialisieren
+            new LuckPermsNametagSubscriber(luckPerms, nametagService);
+
+            // Bereits online befindliche Spieler direkt synchronisieren
+            Bukkit.getScheduler().runTask(this, () -> {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    nametagService.onJoin(p);
+                }
+            });
+
+
             EventLoader.loadEvents(this);
             ElysiumLogger.log("Events successfully loaded.");
 
@@ -49,7 +73,7 @@ public final class ElysiumCore extends JavaPlugin {
 
             TaskLoader.loadAndStartRunnables(this);
             ElysiumLogger.log("Tasks successfully loaded and started.");
-            
+
         } catch (Exception e) {
             ElysiumLogger.error("Error loading plugin components: " + e.getMessage());
             e.printStackTrace();
@@ -57,7 +81,7 @@ public final class ElysiumCore extends JavaPlugin {
 
         ElysiumLogger.log("ElysiumCore has been successfully activated!");
     }
-    
+
     @Override
     public void onDisable() {
         ElysiumLogger.log("ElysiumCore is shutting down...");
@@ -70,7 +94,11 @@ public final class ElysiumCore extends JavaPlugin {
     }
     public static GuildManager getGuildManager() { return guildManager; }
     public static EcoManager getEcoManager() { return ecoManager; }
-    
+    public NametagService getNametagService() {
+        return nametagService;
+    }
+
+
     public static ElysiumCore getInstance() {
         return instance;
     }

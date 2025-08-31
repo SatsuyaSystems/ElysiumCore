@@ -2,6 +2,9 @@ name: ElysiumCore
 version: '1.0-SNAPSHOT'
 main: de.satsuya.elysiumCore.ElysiumCore
 api-version: '1.21'
+depend: [LuckPerms]
+softdepend: [ProtocolLib]
+
 
 commands:
   test:
@@ -79,4 +82,7 @@ permissions:
     default: op
   elysiumcore.speed:
     description: allow use of speed command
+    default: op
+  elysium.chat.spy:
+    description: spy on the chat event
     default: op

@@ -82,6 +82,12 @@
       <version>5.4</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>net.dmulloy2</groupId>
+      <artifactId>ProtocolLib</artifactId>
+      <version>5.4.0</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
