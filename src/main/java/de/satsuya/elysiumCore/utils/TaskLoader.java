@@ -24,7 +24,7 @@ public class TaskLoader {
                     long delay = 0L; // Start ohne Verzögerung
                     long period = 20L; // Wiederhole jede Sekunde (20 Ticks)
 
-                    BukkitTask task = plugin.getServer().getScheduler().runTaskTimer(plugin, runnable, delay, period);
+                    BukkitTask task = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period);
 
                     ElysiumLogger.log("Runnable " + clazz.getSimpleName() + " loaded and started successfully.");
                 } catch (Exception e) {

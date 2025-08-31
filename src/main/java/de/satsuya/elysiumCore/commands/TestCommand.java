@@ -1,14 +1,25 @@
 package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.utils.ConfigLoader;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class TestCommand implements PluginCommand {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestCommand implements PluginCommand, TabExecutor {
 
     @Override
     public String getName() {
         return "test"; // The name of the command
     }
-
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return new ArrayList<>();
+    }
     @Override
     public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
         // Handle the command logic here

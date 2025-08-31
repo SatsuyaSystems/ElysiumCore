@@ -4,10 +4,18 @@ import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.utils.MongoDBManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class RebootCommand implements PluginCommand {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RebootCommand implements PluginCommand, TabExecutor {
     private final MongoDBManager mongoDBManager;
     public RebootCommand() {
         this.mongoDBManager = ElysiumCore.getMongoDBManager();
@@ -15,6 +23,10 @@ public class RebootCommand implements PluginCommand {
     @Override
     public String getName() {
         return "reboot"; // The name of the command
+    }
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return new ArrayList<>();
     }
 
     @Override

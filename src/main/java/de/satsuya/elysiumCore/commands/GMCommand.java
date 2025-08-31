@@ -20,10 +20,11 @@ public class GMCommand implements PluginCommand {
         }
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             if (onlinePlayer.hasPermission("elysiumcore.gm.notify")) {
-                onlinePlayer.sendMessage(ChatColor.RED + onlinePlayer.getDisplayName() + " benötigt einen Gamemaster!");
-                onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 2F, 0F);
+                onlinePlayer.sendMessage(ChatColor.RED + ((Player) sender).getPlayer().getDisplayName() + " benötigt einen Gamemaster!");
+                onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 3F, 1F);
             }
         }
+        sender.sendMessage(ChatColor.GREEN + "Du hast einen Gamemaster gerufen. Bitte warte einen Augenblick.");
         return true;
     }
 }

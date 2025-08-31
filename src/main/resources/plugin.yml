@@ -38,6 +38,12 @@ commands:
     description: Call a gamemaster
     usage: /gm
     permission: elysiumcore.gm
+  report:
+    description: Report a player or a bug
+    permission: elysiumcore.report
+  speed:
+    description: changes the speed of the command sender
+    permission: elysiumcore.speed
 
 
 permissions:
@@ -65,3 +71,12 @@ permissions:
   elysiumcore.gm:
     description: allow use of gm command
     default: true
+  elysiumcore.report:
+    description: allow use of report command
+    default: true
+  elysiumcore.report.notify:
+    description: notify player on report
+    default: op
+  elysiumcore.speed:
+    description: allow use of speed command
+    default: op

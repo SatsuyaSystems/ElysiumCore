@@ -165,6 +165,7 @@ public class EcoCommand implements PluginCommand, TabExecutor {
         Integer amount = Integer.valueOf(args[2]);
         ecoManager.addBalance(targetPlayer, amount);
         player.sendMessage(ChatColor.GREEN + targetPlayer.getDisplayName() + " wurden " + amount + "COL hinzugefügt.");
+        targetPlayer.sendMessage(ChatColor.GREEN + "Dir wurden " + amount + "COL hinzugefügt");
     }
 
     private void handleSetCommand(Player player, String[] args) {
@@ -184,6 +185,7 @@ public class EcoCommand implements PluginCommand, TabExecutor {
         Integer amount = Integer.valueOf(args[2]);
         ecoManager.setBalance(targetPlayer, amount);
         player.sendMessage(ChatColor.GREEN + targetPlayer.getDisplayName() + " wurde auf " + amount + "COL gesetzt.");
+        targetPlayer.sendMessage(ChatColor.GREEN + "Du wurdest auf " + amount + "COL gesetzt");
     }
 
 }
