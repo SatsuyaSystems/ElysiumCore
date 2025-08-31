@@ -47,7 +47,9 @@ commands:
   speed:
     description: changes the speed of the command sender
     permission: elysiumcore.speed
-
+  vanish:
+    description: makes a player invisable for others
+    permission: elysiumcore.vanish
 
 permissions:
   elysiumcore.admin.reload:
@@ -83,6 +85,15 @@ permissions:
   elysiumcore.speed:
     description: allow use of speed command
     default: op
-  elysium.chat.spy:
+  elysiumcore.chat.spy:
     description: spy on the chat event
+    default: op
+  elysiumcore.vanish:
+    description: allow use of vanish command
+    default: op
+  elysiumcore.vanish.see:
+    description: allows see vanished players
+    default: op
+  elysiumcore.vanish.other:
+    description: allows command vanish on other players
     default: op

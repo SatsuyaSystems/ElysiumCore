@@ -2,6 +2,7 @@ package de.satsuya.elysiumCore.events;
 
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.manager.NametagService;
+import de.satsuya.elysiumCore.utils.SetHolder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -15,6 +16,7 @@ public class PlayerQuit implements Listener {
         if (service != null) {
             service.onQuit(event.getPlayer());
         }
+        if (SetHolder.vanishedPlayers.contains(event.getPlayer().getUniqueId())) SetHolder.vanishedPlayers.remove(event.getPlayer().getUniqueId());
         // Database operations should be run on a separate thread to avoid lag.
         new BukkitRunnable() {
             @Override

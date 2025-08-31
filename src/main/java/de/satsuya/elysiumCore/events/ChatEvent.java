@@ -67,7 +67,7 @@ public class ChatEvent implements Listener {
         for (Player recipient : Bukkit.getOnlinePlayers()) {
             if (sender.getWorld().equals(recipient.getWorld())) {
                 double distance = sender.getLocation().distance(recipient.getLocation());
-                if (distance <= ConfigLoader.configData.getInt("chatRadius") || recipient.equals(sender) || recipient.hasPermission("elysium.chat.spy")) {
+                if (distance <= ConfigLoader.configData.getInt("chatRadius") || recipient.equals(sender) || recipient.hasPermission("elysiumcore.chat.spy")) {
                     recipient.sendMessage(chatMessage.toString());
                 }
             }
