@@ -11,7 +11,10 @@ import org.bukkit.entity.Player;
 
 import static com.mongodb.client.model.Filters.eq;
 
-@ManagerInterface(name = "eco")
+@ManagerInterface(
+        name = "eco",
+        weight = 99
+)
 public class EcoManager {
     private final MongoCollection<Document> ecoCollection;
 
@@ -31,7 +34,7 @@ public class EcoManager {
                 .append("name", player.getDisplayName().toString())
                 .append("balance", 1000);
         ecoCollection.insertOne(query);
-        ElysiumLogger.log("Init ECO for player: " + player.getDisplayName());
+        ElysiumLogger.log("Initialized economy for player: " + player.getDisplayName());
     }
     
     public boolean hasValidBalance(Player sender, Integer amount) {
@@ -66,5 +69,41 @@ public class EcoManager {
     public void setBalance(Player player, Integer amount) {
         ecoCollection.updateOne(eq("uuid", player.getUniqueId().toString()),
                 Updates.set("balance", amount));
+    }
+
+    // --- New: Offline-safe methods by UUID ---
+
+    public boolean hasValidBalance(java.util.UUID playerUuid, Integer amount) {
+        Document query = new Document("uuid", playerUuid.toString());
+        Document result = ecoCollection.find(query).first();
+        if (result != null) {
+            int balance = result.getInteger("balance");
+            return balance >= amount;
+        }
+        return false;
+    }
+
+    public Integer getPlayerBalance(java.util.UUID playerUuid) {
+        Document query = new Document("uuid", playerUuid.toString());
+        Document result = ecoCollection.find(query).first();
+        return result != null ? result.getInteger("balance") : 0;
+    }
+
+    public void addBalance(java.util.UUID playerUuid, Integer amount) {
+        ecoCollection.updateOne(eq("uuid", playerUuid.toString()),
+                Updates.inc("balance", amount));
+    }
+
+    public void setBalance(java.util.UUID playerUuid, Integer amount) {
+        ecoCollection.updateOne(eq("uuid", playerUuid.toString()),
+                Updates.set("balance", amount));
+    }
+
+    public void transfere(java.util.UUID senderUuid, java.util.UUID receiverUuid, Integer amount) {
+        ecoCollection.updateOne(eq("uuid", senderUuid.toString()),
+                Updates.inc("balance", -amount));
+        ecoCollection.updateOne(eq("uuid", receiverUuid.toString()),
+                Updates.inc("balance", amount));
+        ElysiumLogger.log("Transfer " + amount + " COL from " + senderUuid + " to " + receiverUuid);
     }
 }

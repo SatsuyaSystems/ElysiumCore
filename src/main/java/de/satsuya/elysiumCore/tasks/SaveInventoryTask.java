@@ -16,7 +16,6 @@ public class SaveInventoryTask extends BukkitRunnable {
         final InventoryManager inventoryManager = ManagerRegistry.get("inventory");
         for (Player player : Bukkit.getOnlinePlayers()) {
             inventoryManager.saveInventory(player);
-            ElysiumLogger.log("Saved inventory for " + player.getName() + " to the database.");
             player.sendMessage(ChatColor.GREEN + "Dein Inventar wurde gespeichert! (Dies passiert alle 5 min)");
         }
     }

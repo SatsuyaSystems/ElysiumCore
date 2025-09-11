@@ -50,6 +50,11 @@ commands:
   vanish:
     description: makes a player invisable for others
     permission: elysiumcore.vanish
+  ah:
+    description: Öffnet das Auktionshaus
+    usage: /ah
+    permission: elysiumcore.ah
+
 
 permissions:
   elysiumcore.admin.reload:
@@ -97,3 +102,6 @@ permissions:
   elysiumcore.vanish.other:
     description: allows command vanish on other players
     default: op
+  elysiumcore.ah:
+    description: allows use of ah command
+    default: true
