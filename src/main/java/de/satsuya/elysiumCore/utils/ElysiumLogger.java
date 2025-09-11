@@ -1,6 +1,7 @@
 package de.satsuya.elysiumCore.utils;
 
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.loaders.ConfigLoader;
 
 import java.util.logging.Level;
 

@@ -1,5 +1,9 @@
 package de.satsuya.elysiumCore;
 
+import de.satsuya.elysiumCore.loaders.CommandLoader;
+import de.satsuya.elysiumCore.loaders.ConfigLoader;
+import de.satsuya.elysiumCore.loaders.EventLoader;
+import de.satsuya.elysiumCore.loaders.TaskLoader;
 import de.satsuya.elysiumCore.manager.EcoManager;
 import de.satsuya.elysiumCore.manager.GuildManager;
 import de.satsuya.elysiumCore.manager.LuckPermsNametagSubscriber;
@@ -69,7 +73,6 @@ public final class ElysiumCore extends JavaPlugin {
             ElysiumLogger.log("Events successfully loaded.");
 
             CommandLoader.loadCommands(this);
-            ElysiumLogger.log("Commands successfully loaded.");
 
             TaskLoader.loadAndStartRunnables(this);
             ElysiumLogger.log("Tasks successfully loaded and started.");

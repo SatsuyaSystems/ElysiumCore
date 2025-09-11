@@ -275,4 +275,31 @@ public class GuildManager {
             return false;
         }
     }
+
+    public Map<UUID, String> getAllPlayerGuildMappings() {
+        Map<UUID, String> result = new HashMap<>();
+        for (Document guildDoc : guildCollection.find()) {
+            String guildName = guildDoc.getString("guildName");
+            if (guildName == null) continue;
+
+            Object membersObj = guildDoc.get("members");
+            if (!(membersObj instanceof List<?>)) continue;
+
+            List<?> members = (List<?>) membersObj;
+            for (Object o : members) {
+                if (o instanceof Document) {
+                    Document memberDoc = (Document) o;
+                    String uuidStr = memberDoc.getString("uuid");
+                    if (uuidStr == null) continue;
+                    try {
+                        UUID uuid = UUID.fromString(uuidStr);
+                        result.put(uuid, guildName);
+                    } catch (IllegalArgumentException ignored) {
+                        // Ungültige UUID im Dokument – überspringen
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }

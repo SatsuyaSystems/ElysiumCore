@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore.commands;
 
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;

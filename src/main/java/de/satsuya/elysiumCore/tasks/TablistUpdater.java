@@ -1,5 +1,7 @@
 package de.satsuya.elysiumCore.tasks;
 
+import de.satsuya.elysiumCore.interfaces.TaskSchedule;
+import de.satsuya.elysiumCore.utils.SetHolder;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -12,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@TaskSchedule(delay = 0L, period = 20L, async = true)
 public class TablistUpdater extends BukkitRunnable {
 
     private final LuckPerms luckPerms;
@@ -49,7 +52,7 @@ public class TablistUpdater extends BukkitRunnable {
                 // For a simple tablist, a default context is fine
                 QueryOptions queryOptions = luckPerms.getContextManager().getQueryOptions(player);
                 String prefix = user.getCachedData().getMetaData(queryOptions).getPrefix();
-                String suffix = user.getCachedData().getMetaData(queryOptions).getSuffix();
+                String suffix = " ["+ SetHolder.playerGuildMap.get(player.getUniqueId()) + "]"; //user.getCachedData().getMetaData(queryOptions).getSuffix();
 
                 // Build the new tablist name with the prefix, player name, and suffix
                 StringBuilder tabNameBuilder = new StringBuilder();
@@ -61,7 +64,7 @@ public class TablistUpdater extends BukkitRunnable {
                 tabNameBuilder.append(player.getName());
 
                 if (suffix != null) {
-                    tabNameBuilder.append(ChatColor.translateAlternateColorCodes('&', suffix));
+                    tabNameBuilder.append(ChatColor.BLUE + suffix);
                 }
 
                 // Set the player's custom name in the tablist

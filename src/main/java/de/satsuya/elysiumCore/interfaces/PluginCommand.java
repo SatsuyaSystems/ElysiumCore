@@ -1,4 +1,4 @@
-package de.satsuya.elysiumCore.commands;
+package de.satsuya.elysiumCore.interfaces;
 
 import org.bukkit.command.CommandExecutor;
 

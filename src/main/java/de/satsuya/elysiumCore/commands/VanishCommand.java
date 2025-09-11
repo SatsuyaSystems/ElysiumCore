@@ -1,7 +1,7 @@
 package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.ElysiumCore;
-import de.satsuya.elysiumCore.utils.ConfigLoader;
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.utils.SetHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

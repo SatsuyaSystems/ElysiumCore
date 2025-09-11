@@ -1,6 +1,7 @@
 package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.utils.MongoDBManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

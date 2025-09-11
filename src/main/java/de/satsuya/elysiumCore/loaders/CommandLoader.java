@@ -1,6 +1,7 @@
-package de.satsuya.elysiumCore.utils;
+package de.satsuya.elysiumCore.loaders;
 
-import de.satsuya.elysiumCore.commands.PluginCommand;
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 

@@ -1,6 +1,7 @@
 package de.satsuya.elysiumCore.commands;
 
-import de.satsuya.elysiumCore.utils.ConfigLoader;
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
+import de.satsuya.elysiumCore.loaders.ConfigLoader;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;

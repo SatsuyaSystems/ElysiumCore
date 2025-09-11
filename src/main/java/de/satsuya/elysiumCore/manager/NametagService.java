@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore.manager;
 
+import de.satsuya.elysiumCore.utils.SetHolder;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.query.QueryOptions;
@@ -92,8 +93,17 @@ public class NametagService {
                 if (meta.getSuffix() != null) suffix = ChatColor.translateAlternateColorCodes('&', meta.getSuffix());
             }
         }
+
+        // Gildenname aus dem Cache an den Suffix anhängen (z. B. " [Guild]")
+        String guildName = SetHolder.playerGuildMap.get(p.getUniqueId());
+        if (guildName != null && !guildName.isEmpty()) {
+            String guildTag = ChatColor.BLUE + " [" + guildName + "]";
+            suffix = (suffix == null || suffix.isEmpty()) ? guildTag : (suffix + guildTag);
+        }
+
         return new NametagData(prefix, suffix, color);
     }
+
 
     private void createOrUpdateForViewer(Player target, Player viewer, NametagData data) {
         Scoreboard sb = getScoreboard(viewer);

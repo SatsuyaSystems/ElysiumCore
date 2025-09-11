@@ -1,5 +1,6 @@
-package de.satsuya.elysiumCore.utils;
+package de.satsuya.elysiumCore.loaders;
 
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;

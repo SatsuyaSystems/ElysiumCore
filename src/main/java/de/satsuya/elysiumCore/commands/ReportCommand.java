@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore.commands;
 
+import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReportCommand implements  PluginCommand, TabExecutor {
+public class ReportCommand implements PluginCommand, TabExecutor {
     @Override
     public String getName() {
         return "report";
