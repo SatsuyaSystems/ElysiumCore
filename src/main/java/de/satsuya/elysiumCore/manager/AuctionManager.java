@@ -149,17 +149,9 @@ public class AuctionManager {
         try {
             // Transfer
             if (sellerPlayer != null && sellerPlayer.isOnline()) {
-                ecoManager.transfere(buyer.getUniqueId(), sellerPlayer.getUniqueId(), listing.price);
                 sellerPlayer.sendMessage(ChatColor.GREEN + "Dein Item: " + listing.item.getType()+ " wurde für " + listing.price + "COL gekauft!");
-            } else {
-                ElysiumLogger.log("Seller is offline. Credit will be processed via EcoManager.");
-                ecoManager.setBalance(buyer.getUniqueId(), ecoManager.getPlayerBalance(buyer.getUniqueId()) - listing.price);
-                if (sellerPlayer == null) {
-                    ElysiumLogger.log("Please extend EcoManager for offline crediting. Seller UUID: " + listing.sellerUuid);
-                } else {
-                    ecoManager.addBalance(sellerPlayer.getUniqueId(), listing.price);
-                }
             }
+            ecoManager.transfere(buyer.getUniqueId(), listing.sellerUuid, listing.price);
 
             // Give item to buyer
             HashMap<Integer, ItemStack> leftovers = buyer.getInventory().addItem(listing.item.clone());
