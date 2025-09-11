@@ -4,6 +4,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.interfaces.ManagerInterface;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bson.Document;
 
 import java.util.*;
@@ -12,6 +14,7 @@ import java.util.*;
  * Diese Klasse verwaltet alle Gilden- und Spielerdaten in einer MongoDB-Datenbank.
  * Sie verwendet die zentrale MongoDBManager-Instanz aus der Hauptklasse ElysiumCore.
  */
+@ManagerInterface(name = "guild")
 public class GuildManager {
     private final MongoCollection<Document> guildCollection;
     private final MongoCollection<Document> invitationCollection;
@@ -22,7 +25,7 @@ public class GuildManager {
      * Nutzt die zentrale MongoDBManager-Instanz aus der Hauptklasse.
      */
     public GuildManager() {
-        MongoDBManager mongoDBManager = ElysiumCore.getMongoDBManager();
+        MongoDBManager mongoDBManager = ManagerRegistry.get("mongodb");
         MongoDatabase database = mongoDBManager.getDatabase();
         this.guildCollection = database.getCollection("guilds");
         this.invitationCollection = database.getCollection("invitations");

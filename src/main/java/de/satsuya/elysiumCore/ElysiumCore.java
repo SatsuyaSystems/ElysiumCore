@@ -1,9 +1,6 @@
 package de.satsuya.elysiumCore;
 
-import de.satsuya.elysiumCore.loaders.CommandLoader;
-import de.satsuya.elysiumCore.loaders.ConfigLoader;
-import de.satsuya.elysiumCore.loaders.EventLoader;
-import de.satsuya.elysiumCore.loaders.TaskLoader;
+import de.satsuya.elysiumCore.loaders.*;
 import de.satsuya.elysiumCore.manager.*;
 import de.satsuya.elysiumCore.utils.*;
 import net.luckperms.api.LuckPerms;
@@ -18,8 +15,6 @@ public final class ElysiumCore extends JavaPlugin {
     private NametagService nametagService;
 
     private static MongoDBManager mongoDBManager;
-    public static GuildManager guildManager;
-    public static EcoManager ecoManager;
 
     @Override
     public void onEnable() {
@@ -35,8 +30,8 @@ public final class ElysiumCore extends JavaPlugin {
             String databaseName = ConfigLoader.configData.getString("mongodb.database");
 
             mongoDBManager = new MongoDBManager(mongoUri, databaseName);
-            guildManager = new GuildManager();
-            ecoManager = new EcoManager();
+            ManagerRegistry.register("mongodb", mongoDBManager);
+            ElysiumLogger.log("Manager MongoDBManager (mongodb) loaded and registert");
 
             if (ConfigLoader.configData.getBoolean("debug")) {
                 ElysiumLogger.debug("Debug mode is enabled.");
@@ -54,6 +49,8 @@ public final class ElysiumCore extends JavaPlugin {
 
             // NametagService ohne ProtocolLib initialisieren
             this.nametagService = new NametagService(this, luckPerms);
+            ManagerRegistry.register("nametag", this.nametagService);
+            ElysiumLogger.log("Manager NametagService (nametag) loaded and registert");
 
             // LuckPerms EventSubscriber initialisieren
             new LuckPermsNametagSubscriber(luckPerms, nametagService);
@@ -65,6 +62,8 @@ public final class ElysiumCore extends JavaPlugin {
                 }
             });
 
+            ManagerLoader.loadManagers();
+            ElysiumLogger.log("Managers successfully loaded.");
 
             EventLoader.loadEvents(this);
             ElysiumLogger.log("Events successfully loaded.");
@@ -88,16 +87,6 @@ public final class ElysiumCore extends JavaPlugin {
         ElysiumLogger.log("Additional bugs Sponsored by angryzero.");
         ElysiumLogger.log("ElysiumCore has been shut down.");
     }
-
-    public static MongoDBManager getMongoDBManager() {
-        return mongoDBManager;
-    }
-    public static GuildManager getGuildManager() { return guildManager; }
-    public static EcoManager getEcoManager() { return ecoManager; }
-    public NametagService getNametagService() {
-        return nametagService;
-    }
-
 
     public static ElysiumCore getInstance() {
         return instance;

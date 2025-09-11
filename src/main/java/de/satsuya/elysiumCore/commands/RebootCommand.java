@@ -3,6 +3,7 @@ package de.satsuya.elysiumCore.commands;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.manager.MongoDBManager;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,7 +20,7 @@ import java.util.List;
 public class RebootCommand implements PluginCommand, TabExecutor {
     private final MongoDBManager mongoDBManager;
     public RebootCommand() {
-        this.mongoDBManager = ElysiumCore.getMongoDBManager();
+        this.mongoDBManager = ManagerRegistry.get("mongodb");
     }
     @Override
     public String getName() {

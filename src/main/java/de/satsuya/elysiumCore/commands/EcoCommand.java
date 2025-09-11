@@ -3,6 +3,7 @@ package de.satsuya.elysiumCore.commands;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.manager.EcoManager;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class EcoCommand implements PluginCommand, TabExecutor {
     private final EcoManager ecoManager;
 
     public EcoCommand() {
-        this.ecoManager = ElysiumCore.getEcoManager();
+        this.ecoManager = ManagerRegistry.get("eco");
     }
 
     @Override

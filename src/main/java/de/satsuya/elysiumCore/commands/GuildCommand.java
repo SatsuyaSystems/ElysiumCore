@@ -3,6 +3,7 @@ package de.satsuya.elysiumCore.commands;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.manager.GuildManager;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -27,7 +28,7 @@ public class GuildCommand implements PluginCommand, TabExecutor {
      * Holt die GuildManager Instanz aus der Hauptklasse.
      */
     public GuildCommand() {
-        this.guildManager = ElysiumCore.getGuildManager();
+        this.guildManager = ManagerRegistry.get("guild");
     }
 
     @Override

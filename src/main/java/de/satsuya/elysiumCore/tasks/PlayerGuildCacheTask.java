@@ -3,6 +3,7 @@ package de.satsuya.elysiumCore.tasks;
 import de.satsuya.elysiumCore.interfaces.TaskSchedule;
 import de.satsuya.elysiumCore.manager.GuildManager;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import de.satsuya.elysiumCore.utils.SetHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @TaskSchedule(delay = 0L, period = 20L * 60L * 5L, async = true) // alle 60 Sekunden
 public class PlayerGuildCacheTask extends BukkitRunnable {
 
-    private final GuildManager guildManager = new GuildManager();
+    private final GuildManager guildManager = ManagerRegistry.get("guild");
 
     @Override
     public void run() {

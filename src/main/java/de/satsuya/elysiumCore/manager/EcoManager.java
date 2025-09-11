@@ -4,17 +4,20 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.interfaces.ManagerInterface;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
+import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 
 import static com.mongodb.client.model.Filters.eq;
 
+@ManagerInterface(name = "eco")
 public class EcoManager {
     private final MongoCollection<Document> ecoCollection;
 
     public EcoManager() {
-        MongoDBManager mongoDBManager = ElysiumCore.getMongoDBManager();
+        MongoDBManager mongoDBManager = ManagerRegistry.get("mongodb");
         MongoDatabase database = mongoDBManager.getDatabase();
         this.ecoCollection = database.getCollection("economy");
     }
