@@ -1,15 +1,12 @@
 package de.satsuya.elysiumCore;
 
 import de.satsuya.elysiumCore.loaders.*;
-import de.satsuya.elysiumCore.manager.MongoDBManager;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ElysiumCore extends JavaPlugin {
 
     private static ElysiumCore instance;
-
-    private static MongoDBManager mongoDBManager;
 
     @Override
     public void onEnable() {
