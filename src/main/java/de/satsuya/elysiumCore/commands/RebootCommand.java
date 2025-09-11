@@ -2,7 +2,7 @@ package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
-import de.satsuya.elysiumCore.manager.MongoDBManager;
+import de.satsuya.elysiumCore.manager.InventoryManager;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RebootCommand implements PluginCommand, TabExecutor {
-    private final MongoDBManager mongoDBManager;
+    private final InventoryManager inventoryManager;
     public RebootCommand() {
-        this.mongoDBManager = ManagerRegistry.get("mongodb");
+        this.inventoryManager = ManagerRegistry.get("inventory");
     }
     @Override
     public String getName() {
@@ -52,7 +52,7 @@ public class RebootCommand implements PluginCommand, TabExecutor {
                     // Save player data on the main thread
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         // Ensure this method is thread-safe or handles its own threads.
-                        mongoDBManager.saveInventory(player);
+                        inventoryManager.saveInventory(player);
                     }
 
                     // Stop the server

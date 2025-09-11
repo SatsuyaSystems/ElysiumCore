@@ -1,7 +1,7 @@
 package de.satsuya.elysiumCore.events;
 
 import de.satsuya.elysiumCore.ElysiumCore;
-import de.satsuya.elysiumCore.manager.MongoDBManager;
+import de.satsuya.elysiumCore.manager.InventoryManager;
 import de.satsuya.elysiumCore.manager.NametagService;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import de.satsuya.elysiumCore.utils.SetHolder;
@@ -23,9 +23,9 @@ public class PlayerQuit implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                MongoDBManager mongodb = ManagerRegistry.get("mongodb");
+                InventoryManager inventoryManager = ManagerRegistry.get("inventory");
                 // Get the MongoDBManager using the static getter.
-                mongodb.saveInventory(event.getPlayer());
+                inventoryManager.saveInventory(event.getPlayer());
             }
         }.runTaskAsynchronously(ElysiumCore.getInstance());
     }

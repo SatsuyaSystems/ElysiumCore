@@ -2,7 +2,7 @@ package de.satsuya.elysiumCore.events;
 
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.manager.EcoManager;
-import de.satsuya.elysiumCore.manager.MongoDBManager;
+import de.satsuya.elysiumCore.manager.InventoryManager;
 import de.satsuya.elysiumCore.manager.NametagService;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import de.satsuya.elysiumCore.utils.SetHolder;
@@ -31,10 +31,10 @@ public class PlayerJoin implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                MongoDBManager mongodb = ManagerRegistry.get("mongodb");
+                InventoryManager inventoryManager = ManagerRegistry.get("inventory");
                 EcoManager ecoManager = ManagerRegistry.get("eco");
                 // We use the static getter to get our MongoDBManager.
-                mongodb.loadInventory(event.getPlayer());
+                inventoryManager.loadInventory(event.getPlayer());
                 if (!ecoManager.isPlayerInDatabase(event.getPlayer())) {
                     ecoManager.initPlayer(event.getPlayer());
                 }
