@@ -3,7 +3,6 @@ package de.satsuya.elysiumCore.manager;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
-import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.interfaces.ManagerInterface;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;

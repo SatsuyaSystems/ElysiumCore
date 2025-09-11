@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
 import de.satsuya.elysiumCore.ElysiumCore;
+import de.satsuya.elysiumCore.interfaces.ManagerInterface;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bson.Document;
@@ -29,6 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@ManagerInterface(
+        name = "mongodb",
+        params = {"${config:mongodb.uri}", "${config:mongodb.database}"},
+        weight = 100
+)
 public class MongoDBManager {
 
     private MongoClient mongoClient;

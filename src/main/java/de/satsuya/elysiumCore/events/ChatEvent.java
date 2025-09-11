@@ -1,7 +1,7 @@
 package de.satsuya.elysiumCore.events;
 
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.loaders.ConfigLoader;
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.utils.SetHolder;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;

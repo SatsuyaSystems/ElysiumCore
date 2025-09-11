@@ -1,5 +1,6 @@
 package de.satsuya.elysiumCore.manager;
 
+import de.satsuya.elysiumCore.interfaces.ManagerInterface;
 import de.satsuya.elysiumCore.utils.SetHolder;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
@@ -17,6 +18,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
+@ManagerInterface(name = "nametag")
 public class NametagService {
 
     private final Plugin plugin;
@@ -27,6 +29,16 @@ public class NametagService {
     public NametagService(Plugin plugin, LuckPerms luckPerms) {
         this.plugin = plugin;
         this.luckPerms = luckPerms;
+
+        // Subscribe to LuckPerms user data changes
+        new LuckPermsNametagSubscriber(luckPerms, this);
+
+        // Initialize already online players
+        Bukkit.getScheduler().runTask(this.plugin, () -> {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                onJoin(p);
+            }
+        });
     }
 
     // Aufrufen bei PlayerJoinEvent

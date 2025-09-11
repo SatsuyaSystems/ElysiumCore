@@ -5,11 +5,8 @@ import de.satsuya.elysiumCore.manager.GuildManager;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import de.satsuya.elysiumCore.utils.SetHolder;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 

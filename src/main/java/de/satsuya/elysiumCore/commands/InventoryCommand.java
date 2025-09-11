@@ -1,8 +1,8 @@
 package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
-import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.manager.ItemManager;
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

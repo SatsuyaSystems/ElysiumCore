@@ -10,4 +10,6 @@ import static java.lang.annotation.ElementType.TYPE;
 @Target(TYPE)
 public @interface ManagerInterface {
     String name();
+    String[] params() default {};
+    int weight() default 0;
 }
