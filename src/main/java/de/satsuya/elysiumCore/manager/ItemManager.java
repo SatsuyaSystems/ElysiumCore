@@ -1,5 +1,6 @@
-package de.satsuya.elysiumCore.utils;
+package de.satsuya.elysiumCore.manager;
 
+import de.satsuya.elysiumCore.utils.NamespaceKeys;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

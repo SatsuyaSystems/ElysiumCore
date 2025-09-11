@@ -5,7 +5,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.ElysiumCore;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
-import de.satsuya.elysiumCore.utils.MongoDBManager;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 
