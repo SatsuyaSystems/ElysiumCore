@@ -172,6 +172,12 @@ public class GuildCommand implements PluginCommand, TabExecutor {
 
         String guildName = args[1];
 
+        // Prüft ob der Gilden-Name zu lang ist
+        if (guildName.length() > 12) {
+            player.sendMessage(ChatColor.RED + "Der Gilden-Name darf maximal 12 Zeichen lang sein.");
+            return;
+        }
+
         // Prüft, ob der Spieler bereits in einer Gilde ist
         if (guildManager.isPlayerInGuild(player.getUniqueId())) {
             player.sendMessage(ChatColor.RED + "Du bist bereits in einer Gilde!");
