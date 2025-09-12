@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import de.satsuya.elysiumCore.interfaces.ManagerInterface;
+import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bson.Document;
 
@@ -57,7 +58,7 @@ public class GuildManager {
             return true;
         } catch (Exception e) {
             // Fehlermeldung loggen, falls etwas schiefgeht
-            System.err.println("Fehler beim Erstellen der Gilde: " + e.getMessage());
+            ElysiumLogger.error("Error on guild creation: " + e.getMessage());
             return false;
         }
     }
@@ -190,7 +191,7 @@ public class GuildManager {
                 try {
                     memberUUIDs.add(UUID.fromString(memberDoc.getString("uuid")));
                 } catch (IllegalArgumentException e) {
-                    System.err.println("Ungültige UUID im Gilden-Dokument: " + memberDoc.getString("uuid"));
+                    ElysiumLogger.error("Illegal UUID im Guild-Document: " + memberDoc.getString("uuid"));
                 }
             }
             return memberUUIDs;
@@ -272,7 +273,7 @@ public class GuildManager {
 
             return true;
         } catch (Exception e) {
-            System.err.println("Fehler beim Löschen der Gilde: " + e.getMessage());
+            ElysiumLogger.error("Error on guild deletion: " + e.getMessage());
             return false;
         }
     }

@@ -7,6 +7,7 @@ import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -17,14 +18,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RebootCommand implements PluginCommand, TabExecutor {
+@PluginCommand(name = "reboot")
+public class RebootCommand implements CommandExecutor, TabExecutor {
     private final InventoryManager inventoryManager;
     public RebootCommand() {
         this.inventoryManager = ManagerRegistry.get("inventory");
-    }
-    @Override
-    public String getName() {
-        return "reboot"; // The name of the command
     }
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

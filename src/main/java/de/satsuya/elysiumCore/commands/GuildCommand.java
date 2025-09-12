@@ -7,6 +7,7 @@ import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -20,7 +21,8 @@ import java.util.*;
  * Diese Klasse ist der Befehls-Handler für alle Gilden-bezogenen Befehle.
  * Sie implementiert PluginCommand, um die Anforderungen des Command Loaders zu erfüllen.
  */
-public class GuildCommand implements PluginCommand, TabExecutor {
+@PluginCommand(name = "guild")
+public class GuildCommand implements CommandExecutor, TabExecutor {
 
     private final GuildManager guildManager;
 
@@ -29,11 +31,6 @@ public class GuildCommand implements PluginCommand, TabExecutor {
      */
     public GuildCommand() {
         this.guildManager = ManagerRegistry.get("guild");
-    }
-
-    @Override
-    public String getName() {
-        return "guild";
     }
 
     @Override

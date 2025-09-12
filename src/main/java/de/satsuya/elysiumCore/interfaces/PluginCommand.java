@@ -1,7 +1,13 @@
 package de.satsuya.elysiumCore.interfaces;
 
-import org.bukkit.command.CommandExecutor;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface PluginCommand extends CommandExecutor {
-    String getName();  // Used to dynamically register the command
+import static java.lang.annotation.ElementType.TYPE;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(TYPE)
+public @interface PluginCommand {
+    String name();  // Used to dynamically register the command
 }

@@ -6,6 +6,7 @@ import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -19,15 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AuctionCommand implements PluginCommand, TabExecutor {
+@PluginCommand(name = "ah")
+public class AuctionCommand implements CommandExecutor, TabExecutor {
 
     public static final String AUCTION_TITLE = "Auktionshaus";
     public static final String LISTING_TITLE = "Auktionshaus - Liste";
-
-    @Override
-    public String getName() {
-        return "ah";
-    }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

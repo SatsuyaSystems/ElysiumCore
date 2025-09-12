@@ -2,6 +2,7 @@ package de.satsuya.elysiumCore.commands;
 
 import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -12,11 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpeedCommand implements PluginCommand, TabExecutor {
-    @Override
-    public String getName() {
-        return "speed";
-    }
+@PluginCommand(name = "speed")
+public class SpeedCommand implements CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1)

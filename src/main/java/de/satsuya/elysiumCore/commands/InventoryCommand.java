@@ -5,6 +5,7 @@ import de.satsuya.elysiumCore.manager.ItemManager;
 import de.satsuya.elysiumCore.utils.ElysiumLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -18,11 +19,8 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryCommand implements PluginCommand, TabExecutor {
-    @Override
-    public String getName() {
-        return "inventory"; // The name of the command
-    }
+@PluginCommand(name = "inventory")
+public class InventoryCommand implements CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         return new ArrayList<>();

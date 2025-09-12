@@ -5,6 +5,7 @@ import de.satsuya.elysiumCore.interfaces.PluginCommand;
 import de.satsuya.elysiumCore.utils.SetHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -14,11 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VanishCommand implements PluginCommand, TabExecutor {
-    @Override
-    public String getName() {
-        return "vanish"; // The name of the command
-    }
+@PluginCommand(name = "vanish")
+public class VanishCommand implements CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {

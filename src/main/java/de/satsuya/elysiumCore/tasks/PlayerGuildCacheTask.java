@@ -30,9 +30,9 @@ public class PlayerGuildCacheTask extends BukkitRunnable {
             SetHolder.playerGuildMap.clear();
             SetHolder.playerGuildMap.putAll(allMappings);
 
-            ElysiumLogger.log("PlayerGuildCacheTask: " + allMappings.size() + " Spieler-Gilden-Zuordnungen aktualisiert.");
+            ElysiumLogger.log("PlayerGuildCacheTask: " + allMappings.size() + " PlayerMappings updated.");
         } catch (Exception ex) {
-            ElysiumLogger.log("PlayerGuildCacheTask Fehler: " + ex.getMessage());
+            ElysiumLogger.error("PlayerGuildCacheTask error: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

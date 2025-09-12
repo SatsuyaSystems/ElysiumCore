@@ -7,6 +7,7 @@ import de.satsuya.elysiumCore.utils.ManagerRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -18,17 +19,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EcoCommand implements PluginCommand, TabExecutor {
+@PluginCommand(name = "eco")
+public class EcoCommand implements CommandExecutor, TabExecutor {
     private final EcoManager ecoManager;
 
     public EcoCommand() {
         this.ecoManager = ManagerRegistry.get("eco");
     }
 
-    @Override
-    public String getName() {
-        return "eco";
-    }
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1)
