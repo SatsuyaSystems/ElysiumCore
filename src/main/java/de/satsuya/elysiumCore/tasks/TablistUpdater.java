@@ -52,7 +52,17 @@ public class TablistUpdater extends BukkitRunnable {
                 // For a simple tablist, a default context is fine
                 QueryOptions queryOptions = luckPerms.getContextManager().getQueryOptions(player);
                 String prefix = user.getCachedData().getMetaData(queryOptions).getPrefix();
-                String suffix = " ["+ SetHolder.playerGuildMap.get(player.getUniqueId()) + "]"; //user.getCachedData().getMetaData(queryOptions).getSuffix();
+                String guildName = SetHolder.playerGuildMap.get(player.getUniqueId());
+                String suffix = user.getCachedData().getMetaData(queryOptions).getSuffix();
+
+                // Ensure suffix is not null before appending guild name
+                if (suffix == null) {
+                    suffix = "";
+                }
+
+                if (guildName != null && !guildName.isEmpty()) {
+                    suffix += ChatColor.BLUE + " [" + guildName + "]";
+                }
 
                 // Build the new tablist name with the prefix, player name, and suffix
                 StringBuilder tabNameBuilder = new StringBuilder();
@@ -64,7 +74,7 @@ public class TablistUpdater extends BukkitRunnable {
                 tabNameBuilder.append(player.getName());
 
                 if (suffix != null) {
-                    tabNameBuilder.append(ChatColor.BLUE + suffix);
+                    tabNameBuilder.append(suffix);
                 }
 
                 // Set the player's custom name in the tablist
