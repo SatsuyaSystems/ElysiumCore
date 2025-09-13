@@ -11,9 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class PlayerJoin implements Listener {
+public class PlayerJoinQuit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -38,6 +39,24 @@ public class PlayerJoin implements Listener {
                 if (!ecoManager.isPlayerInDatabase(event.getPlayer())) {
                     ecoManager.initPlayer(event.getPlayer());
                 }
+            }
+        }.runTaskAsynchronously(ElysiumCore.getInstance());
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        NametagService service = ManagerRegistry.get("nametag");
+        if (service != null) {
+            service.onQuit(event.getPlayer());
+        }
+        if (SetHolder.vanishedPlayers.contains(event.getPlayer().getUniqueId())) SetHolder.vanishedPlayers.remove(event.getPlayer().getUniqueId());
+        // Database operations should be run on a separate thread to avoid lag.
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                InventoryManager inventoryManager = ManagerRegistry.get("inventory");
+                // Get the MongoDBManager using the static getter.
+                inventoryManager.saveInventory(event.getPlayer());
             }
         }.runTaskAsynchronously(ElysiumCore.getInstance());
     }

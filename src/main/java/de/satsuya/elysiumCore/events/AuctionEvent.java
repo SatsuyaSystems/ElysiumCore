@@ -18,14 +18,6 @@ public class AuctionEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equals("Roulette")) {
-            event.setCancelled(true);
-        }
-        if (event.getView().getTitle().equals("Elysium Inventory")) {
-            event.setCancelled(true);
-            ItemStack item = event.getCurrentItem();
-            player.getInventory().addItem(item);
-        }
         if (event.getView().getTitle().equals(AuctionCommand.AUCTION_TITLE)) {
             event.setCancelled(true);
             ItemStack clicked = event.getCurrentItem();
